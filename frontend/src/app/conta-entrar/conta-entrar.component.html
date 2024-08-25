@@ -1,0 +1,23 @@
+<div class="alerta-pequeno" [class.alerta-pequeno-active]="viewAlertaPequeno">
+    <h1>{{alertaPequeno}}</h1>
+</div>
+
+<main>
+    <div class="box-entrar">
+        <div class="form">
+            <h1>Bem vindo(a) de volta!</h1>
+            <div class="box-input">
+                <label>Email</label>
+                <input type="text" required [(ngModel)]="conta.email">
+            </div>
+            <div class="box-input">
+                <label>Senha</label>
+                <input type="password" required [(ngModel)]="conta.senha">
+            </div>
+            <div class="box-btns">
+                <button class="btn-roxo" (click)="onEntrar()">Entrar</button>
+                <button class="btn-branco" (click)="onCadastrar()">Cadastrar</button>
+            </div>
+        </div>
+    </div>
+</main>

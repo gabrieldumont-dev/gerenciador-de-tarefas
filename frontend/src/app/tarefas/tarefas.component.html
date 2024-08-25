@@ -1,0 +1,246 @@
+<div class="alerta-pequeno" [class.alerta-pequeno-active]="viewAlertaPequeno">
+    <h1>{{alertaPequeno}}</h1>
+</div>
+
+<div class="box-selecionados" [class.box-selecionados-active]="tarefasSelect.length > 0">
+    <h1>Selecionado(s) {{tarefasSelect.length}}</h1>
+    @if (pageSelect != "Concluido"){
+        <button class="btn-roxo" (click)="onConcluirTarefa()">Concluir</button>
+    } @else {
+        <button class="btn-roxo" (click)="onConcluirTarefa()">Desconcluir</button>
+    }
+    <button class="btn-preto" (click)="onDeleteTarefa()">Excluir</button>
+    @if (tarefasSelect.length == 1){
+        <button class="btn-preto" (click)="onEditTarefa()">Editar</button>
+    }
+</div>
+
+<div class="main-alerta-tarefa" [class.alerta-tarefa-active]="viewAlertaTarefa" (click)="onChangeAlertaTarefa()">
+    <div class="alerta-tarefa" (click)="clickAlerta = true">
+        <div class="box-input">
+            <label>Título</label>
+            <input type="text" [(ngModel)]="tarefa.titulo" required [disabled]="acao != 'novaTarefa'">
+        </div>
+        <div class="box-input">
+            <label>Descrição</label>
+            <textarea rows="5" type="text" [(ngModel)]="tarefa.descricao" required [disabled]="acao != 'novaTarefa'"></textarea>
+        </div>
+        <div class="box-input">
+            <input type="datetime-local" [(ngModel)]="tarefa.data" required [disabled]="acao != 'novaTarefa'">
+        </div>
+        @if (acao == 'novaTarefa'){
+            <div class="box-btns">
+                <button class="btn-roxo" (click)="onPostTarefa()">Salvar</button>
+                <button class="btn-preto" (click)="onCancelar()">Cancelar</button>
+            </div>
+        }
+    </div>
+</div>
+
+<main>
+    <!-- <h1>Tarefas</h1> -->
+    <div class="box-btn">
+        <button class="btn-roxo" (click)="onNovaTarefa()">Nova tarefa</button>
+        <button class="btn-preto" [class.btn-selecionado]="acao == 'selecionar'" (click)="onSelecionar()">Selecionar</button>
+    </div>
+    <div class="box-btnPage">
+        <button [class.btn-select]="pageSelect == 'Atribuído'" (click)="onChangePage('Atribuído')">Atribuído</button>
+        <button [class.btn-select]="pageSelect == 'Pendente'" (click)="onChangePage('Pendente')">Pendente</button>
+        <button [class.btn-select]="pageSelect == 'Concluido'" (click)="onChangePage('Concluido')">Concluido</button>
+    </div>
+
+    <div class="box-tarefas">
+        @if (pageSelect != 'Concluido'){
+            <div class="box-cabecalho" (click)="onOpenTarefa(0)">
+                <h2>Hoje</h2>
+                <div [class.possui-tarefas]="tarefasHoje.length > 0" [class.tarefas-open]="openHoje">
+                    <p>{{tarefasHoje.length}}</p>
+                    <i class="fa-solid fa-angle-down"></i>
+                </div>
+            </div>
+
+            <div class="box-lista" [class.box-lista-open]="openHoje">
+                @for (tarefa of tarefasHoje; track $index){
+                    <div class="box-tarefa" [class.box-tarefa-select]="tarefa.select" [class.box-tarefa-border]="$index != 0" (click)="onSelectTarefa(tarefa)">
+                        @if (acao == "selecionar"){
+                            @if (tarefa.select){
+                                <i class="fa-solid fa-square-check"></i>
+                            } @else {
+                                <i class="fa-regular fa-square"></i>
+                            }
+                        }
+                        <div>
+                            <p>{{tarefa.data_lista}}</p>
+                            <h3>{{tarefa.titulo}}</h3>
+                        </div>
+                    </div>
+                }
+            </div>
+        } @else {
+            <div class="box-cabecalho" (click)="onOpenTarefa(4)">
+                <h2>Concluído com antecedência</h2>
+                <div [class.possui-tarefas]="tarefasAntecedencia.length > 0" [class.tarefas-open]="openAntecedencia">
+                    <p>{{tarefasAntecedencia.length}}</p>
+                    <i class="fa-solid fa-angle-down"></i>
+                </div>
+            </div>
+
+            <div class="box-lista" [class.box-lista-open]="openAntecedencia">
+                @for (tarefa of tarefasAntecedencia; track $index){
+                    <div class="box-tarefa" [class.box-tarefa-select]="tarefa.select" [class.box-tarefa-border]="$index != 0" (click)="onSelectTarefa(tarefa)">
+                        @if (acao == "selecionar"){
+                            @if (tarefa.select){
+                                <i class="fa-solid fa-square-check"></i>
+                            } @else {
+                                <i class="fa-regular fa-square"></i>
+                            }
+                        }
+                        <div>
+                            <p>{{tarefa.data_lista}}</p>
+                            <h3>{{tarefa.titulo}}</h3>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+
+    <div class="box-tarefas">
+        <div class="box-cabecalho" (click)="onOpenTarefa(1)">
+            <h2>Esta semana</h2>
+            <div [class.possui-tarefas]="tarefasEstaSemana.length > 0" [class.tarefas-open]="openEstaSemana">
+                <p>{{tarefasEstaSemana.length}}</p>
+                <i class="fa-solid fa-angle-down"></i>
+            </div>
+        </div>
+        <div class="box-lista" [class.box-lista-open]="openEstaSemana">
+            @for (tarefa of tarefasEstaSemana; track $index){
+                <div class="box-tarefa" [class.box-tarefa-select]="tarefa.select" [class.box-tarefa-border]="$index != 0" (click)="onSelectTarefa(tarefa)">
+                    @if (acao == "selecionar"){
+                        @if (tarefa.select){
+                            <i class="fa-solid fa-square-check"></i>
+                        } @else {
+                            <i class="fa-regular fa-square"></i>
+                        }
+                    }
+                    <div>
+                        <p>{{tarefa.data_lista}}</p>
+                        <h3>{{tarefa.titulo}}</h3>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="box-tarefas">
+        @if (pageSelect == "Atribuído"){
+            <div class="box-cabecalho" (click)="onOpenTarefa(2)">
+                <h2>Próxima semana</h2>
+                <div [class.possui-tarefas]="tarefasProximaSemana.length > 0" [class.tarefas-open]="openProximaSemana">
+                    <p>{{tarefasProximaSemana.length}}</p>
+                    <i class="fa-solid fa-angle-down"></i>
+                </div>
+            </div>
+
+            <div class="box-lista" [class.box-lista-open]="openProximaSemana">
+                @for (tarefa of tarefasProximaSemana; track $index){
+                    <div class="box-tarefa" [class.box-tarefa-select]="tarefa.select" [class.box-tarefa-border]="$index != 0" (click)="onSelectTarefa(tarefa)">
+                        @if (acao == "selecionar"){
+                            @if (tarefa.select){
+                                <i class="fa-solid fa-square-check"></i>
+                            } @else {
+                                <i class="fa-regular fa-square"></i>
+                            }
+                        }
+                        <div>
+                            <p>{{tarefa.data_lista}}</p>
+                            <h3>{{tarefa.titulo}}</h3>
+                        </div>
+                    </div>
+                }
+            </div>
+        } @else {
+            <div class="box-cabecalho" (click)="onOpenTarefa(5)">
+                <h2>Semana passada</h2>
+                <div [class.possui-tarefas]="tarefasSemanaPassada.length > 0" [class.tarefas-open]="openSemanaPassada">
+                    <p>{{tarefasSemanaPassada.length}}</p>
+                    <i class="fa-solid fa-angle-down"></i>
+                </div>
+            </div>
+
+            <div class="box-lista" [class.box-lista-open]="openSemanaPassada">
+                @for (tarefa of tarefasSemanaPassada; track $index){
+                    <div class="box-tarefa" [class.box-tarefa-select]="tarefa.select" [class.box-tarefa-border]="$index != 0" (click)="onSelectTarefa(tarefa)">
+                        @if (acao == "selecionar"){
+                            @if (tarefa.select){
+                                <i class="fa-solid fa-square-check"></i>
+                            } @else {
+                                <i class="fa-regular fa-square"></i>
+                            }
+                        }
+                        <div>
+                            <p>{{tarefa.data_lista}}</p>
+                            <h3>{{tarefa.titulo}}</h3>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+
+    <div class="box-tarefas">
+        @if (pageSelect == "Atribuído"){
+            <div class="box-cabecalho" (click)="onOpenTarefa(3)">
+                <h2>Depois</h2>
+                <div [class.possui-tarefas]="tarefasDepois.length > 0" [class.tarefas-open]="openDepois">
+                    <p>{{tarefasDepois.length}}</p>
+                    <i class="fa-solid fa-angle-down"></i>
+                </div>
+            </div>
+
+            <div class="box-lista" [class.box-lista-open]="openDepois">
+                @for (tarefa of tarefasDepois; track $index){
+                    <div class="box-tarefa" [class.box-tarefa-select]="tarefa.select" [class.box-tarefa-border]="$index != 0" (click)="onSelectTarefa(tarefa)">
+                        @if (acao == "selecionar"){
+                            @if (tarefa.select){
+                                <i class="fa-solid fa-square-check"></i>
+                            } @else {
+                                <i class="fa-regular fa-square"></i>
+                            }
+                        }
+                        <div>
+                            <p>{{tarefa.data_lista}}</p>
+                            <h3>{{tarefa.titulo}}</h3>
+                        </div>
+                    </div>
+                }
+            </div>
+        } @else {
+            <div class="box-cabecalho" (click)="onOpenTarefa(6)">
+                <h2>Antes</h2>
+                <div [class.possui-tarefas]="tarefasAntes.length > 0" [class.tarefas-open]="openAntes">
+                    <p>{{tarefasAntes.length}}</p>
+                    <i class="fa-solid fa-angle-down"></i>
+                </div>
+            </div>
+
+            <div class="box-lista" [class.box-lista-open]="openAntes">
+                @for (tarefa of tarefasAntes; track $index){
+                    <div class="box-tarefa" [class.box-tarefa-select]="tarefa.select" [class.box-tarefa-border]="$index != 0" (click)="onSelectTarefa(tarefa)">
+                        @if (acao == "selecionar"){
+                            @if (tarefa.select){
+                                <i class="fa-solid fa-square-check"></i>
+                            } @else {
+                                <i class="fa-regular fa-square"></i>
+                            }
+                        }
+                        <div>
+                            <p>{{tarefa.data_lista}}</p>
+                            <h3>{{tarefa.titulo}}</h3>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</main>

@@ -1,0 +1,147 @@
+$preto-primario:    #0f1113;
+$preto-secundario:  #212529;
+$preto-terceiro:    #343A40;
+$preto-quarto:      #4e545a;
+
+$roxo:              #7209B7;
+$rosa:              #B5179E;
+$cinza:             #9c9c9c;
+
+main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+
+    background-color: $preto-primario;
+    .box-entrar{
+        width: 600px;
+
+        animation: degrade 10s ease infinite;
+        
+        @keyframes degrade {
+            0%{
+                background-color: $roxo;
+            }
+
+            50%{
+                background-color: $rosa;
+            }
+
+            100%{
+                background-color: $roxo;
+            }
+        }
+
+        .form{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 50px;
+            
+            width: 99%;
+            padding: 100px 50px;
+
+            background-color: $preto-secundario;
+
+            h1{
+                color: white;
+                font-size: 20pt;
+                font-weight: 700;
+            }
+            
+            .box-input{
+                display: flex;
+                flex-direction: column;
+                // gap: 10px;
+
+                width: 100%;
+
+                label{
+                    color: white;
+                    font-size: 12pt;
+                }
+
+                input{  
+                    border: none;
+                    outline: none;
+
+                    padding: 10px 0px;
+
+                    color: white;
+                    font-size: 12pt;
+                    background-color: transparent;
+                    border-bottom: solid 1px $cinza;
+                }
+
+                input:focus, input:valid{
+                    border-bottom: solid 1px white;
+                }
+            }
+
+            .box-btns{
+                display: flex;
+                gap: 15px;
+
+                width: 100%;
+                
+                .btn-roxo{
+                    border: none;
+                    outline: none;
+    
+                    width: 100%;
+                    padding: 10px;
+    
+                    color: white;
+                    font-size: 12pt;
+                    font-weight: 300;
+                    // background-image: linear-gradient(to right, $roxo, $rosa);
+                    // background-color: $roxo;
+                    background: linear-gradient(45deg, $roxo, $rosa);
+                    background-size: 200% 100%;
+    
+                    transition: all 0.3s ease;
+    
+                    cursor: pointer;
+                }
+    
+                .btn-roxo:hover{
+                    background-position: 50% 100%;
+                }
+
+                .btn-branco{
+                    border: none;
+                    outline: none;
+    
+                    width: 100%;
+                    padding: 10px;
+    
+                    color: $cinza;
+                    font-size: 12pt;
+                    font-weight: 300;
+                    background-color: transparent;
+                    border: solid 1px $cinza;
+
+                    cursor: pointer;
+                }
+
+                .btn-branco:hover{
+                    color: white;
+                    border: solid 1px white;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    main .box-entrar{
+        height: 100%;
+
+        .form{
+            padding: 20px;
+            height: 100%;
+        }
+    }
+}

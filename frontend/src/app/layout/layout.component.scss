@@ -1,0 +1,131 @@
+$preto-primario:    #0f1113;
+$preto-secundario:  #212529;
+$preto-terceiro:    #343A40;
+$preto-quarto:      #4e545a;
+
+$roxo:              #7209B7;
+$rosa:              #B5179E;
+$cinza:             #9c9c9c;
+
+header{
+    display: none;
+
+    position: fixed;
+    top: 0px;
+    z-index: 10;
+
+    padding: 20px;
+
+    width: 100%;
+
+    border-bottom: solid 1px $preto-secundario;
+    background-color: $preto-primario;
+
+    i{
+        color: white;
+        font-size: 12pt;
+        cursor: pointer;
+    }
+}
+
+nav{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    
+    height: 100vh;
+    width: 250px;
+    padding: 20px;
+
+    background-color: $preto-primario;
+    border-right: solid 1px $preto-secundario;
+
+    div{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        
+        > i{
+            display: none;
+    
+            margin-bottom: 40px;
+            padding: 10px;
+
+            color: white;
+            font-size: 15pt;
+    
+            cursor: pointer;
+        }
+
+        a{
+            display: flex;
+            gap: 15px;
+
+            width: 100%;
+            padding: 10px;
+
+            cursor: pointer;
+
+            i{
+                color: white;
+                font-size: 12pt;
+            }
+
+            p{
+                color: white;
+                font-size: 12pt;
+                text-decoration: none;
+                border-bottom: solid 1px transparent
+            }
+        }
+
+        a:hover{
+            background-color: $preto-secundario;
+        }
+
+        .select{
+            border-bottom: solid 1px white;
+            background-color: $preto-secundario !important;
+        }
+    }
+}
+
+main{
+    padding-left: 250px;
+}
+
+@media (max-width: 850px) {
+    header{
+        display: block;
+    }
+
+    nav{
+        z-index: 100;
+
+        width: 100%;
+
+        border-right: solid 1px $preto-secundario;
+        transition: all 0.3s ease;
+        transform: translateX(-100%);
+        
+        div {
+            > i{
+                display: block;
+            }
+        }
+    }
+
+    .nav-open{
+        transform: translateX(0px);
+    }
+
+    main{
+        padding: 0px;
+        padding-top: 65px;
+    }
+}

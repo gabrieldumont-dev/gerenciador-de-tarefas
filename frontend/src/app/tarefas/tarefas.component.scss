@@ -1,0 +1,316 @@
+$preto-primario:    #0f1113;
+$preto-secundario:  #212529;
+$preto-terceiro:    #343A40;
+$preto-quarto:      #4e545a;
+
+$roxo:              #7209B7;
+$rosa:              #B5179E;
+$cinza:             #9c9c9c;
+
+.box-selecionados{
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(calc(-100% - 20px));
+    z-index: 11;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    background-color: $preto-primario;
+
+    transition: all 0.3s ease;
+
+    h1{
+        color: white;
+        font-size: 15pt;
+    }
+
+    button{
+        border: none;
+        outline: none;
+
+        padding: 5px 10px;
+
+        font-size: 12pt;
+
+        cursor: pointer;
+    }
+
+    .btn-roxo{
+        color: white;
+        background: linear-gradient(45deg, $roxo, $rosa);
+        background-size: 200% 100%;
+
+        transition: all 0.3s ease;
+    }
+
+    .btn-roxo:hover{
+        background-position: 50% 100%;
+    }
+
+    .btn-preto{
+        color: gray;
+        background-color: transparent;
+        border: solid 1px gray;
+    }
+
+    .btn-preto:hover{
+        color: white;
+        border: solid 1px white;
+    }
+}
+
+.box-selecionados-active{
+    transform: translateX(-50%) translateY(0px);
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    padding: 40px;
+
+    h1{
+        margin-bottom: 20px;
+
+        color: white;
+        font-size: 20pt;
+        font-weight: 700;
+    }
+
+    .box-btn{
+        display: flex;
+        justify-content: end;
+        gap: 15px;
+
+        button{
+            border: none;
+            outline: none;
+
+            padding: 10px 30px;
+
+            font-size: 12pt;
+            font-weight: 300;
+            
+            cursor: pointer;
+        }
+
+        .btn-roxo{
+            color: white;
+            background: linear-gradient(45deg, $roxo, $rosa);
+            background-size: 200% 100%;
+
+            transition: all 0.3s ease;
+            
+            cursor: pointer;
+        }
+
+        .btn-roxo:hover{
+            background-position: 50% 100%;
+        }
+
+        .btn-preto{
+            color: gray;
+            background-color: transparent;
+            border: solid 1px gray;
+        }
+
+        .btn-preto:hover{
+            color: white;
+            border: solid 1px white;
+        }
+
+        .btn-selecionado{
+            color: white !important;
+            border: solid 1px white !important;
+        }
+    }
+
+    .box-btnPage{
+        display: flex;
+        justify-content: center;
+        
+        width: 100%;
+
+        button{
+            border: none;
+            outline: none;
+
+            padding: 10px 30px;
+
+            color: white;
+            font-size: 12pt;
+            font-weight: 300;
+            background-color: transparent;
+            border-bottom: solid 1px transparent;
+
+            cursor: pointer;
+        }
+
+        button:hover{
+            background-color: $preto-secundario;
+            border-bottom: solid 1px white;
+        }
+
+        .btn-select{
+            background-color: $preto-secundario;
+            border-bottom: solid 1px white;
+        }
+    }
+
+    .box-tarefas{
+        display: flex;
+        flex-direction: column;
+        // gap: 10px;
+
+        .box-cabecalho{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 10px 0px;
+            padding-left: 10px;
+
+            cursor: pointer;
+
+            h2{
+                color: white;
+                font-size: 15pt;
+                font-weight: 700;
+            }
+
+            div{
+                display: flex;
+                align-items: center;
+                gap: 10px;
+
+                p{
+                    color: gray;
+                    font-size: 15pt;
+                    font-weight: 700;
+                }
+
+                i{
+                    color: gray;
+                    font-size: 15pt;
+
+                    // transition: all 0.3s ease;
+                }
+            }
+
+            .possui-tarefas{
+                p{
+                    color: white !important;
+                }
+                
+                i{
+                    color: white !important;
+                }
+            }
+
+            .tarefas-open{
+                i{
+                    transform: rotate(180deg) translateY(2px);
+                }
+            }
+        }
+
+        .box-lista{
+            height: 0px;
+            max-height: 300px;
+            overflow: auto;
+
+            transform: translateY(-10px);
+            opacity: 0;
+
+            transition: all 0.3s ease;
+
+            .box-tarefa{
+                display: flex;
+                align-items: center;
+                gap: 20px;
+
+                width: 100%;
+                padding: 10px;
+
+                cursor: pointer;
+
+                i{
+                    color: white;
+                }
+
+                div{
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+
+                    p{
+                        color: white;
+                        font-size: 10pt;
+                        font-weight: 300;
+                    }
+
+                    h3{
+                        color: white;
+                        font-size: 12pt;
+                        font-weight: 300;
+                    }
+                }
+            }
+
+            .box-tarefa:hover{
+                background-color: $preto-secundario;
+            }
+
+            .box-tarefa-border{
+                border-top: solid 1px $preto-secundario;
+            }
+
+            .box-tarefa-select{
+                background-color: $preto-secundario !important;
+            }
+
+            .tarefa-concluida{
+                // background: linear-gradient(45deg, $roxo, $rosa);
+                border-right: solid 5px $rosa;
+                // background-size: 200% 100%;
+            }
+        }
+
+        .box-lista::-webkit-scrollbar{
+            width: 5px;
+
+            background-color: $preto-primario;
+        }
+
+        .box-lista::-webkit-scrollbar-thumb{
+            background-color: $preto-secundario;
+        }
+
+        .box-lista-open{
+            transform: translateY(0px);
+            opacity: 1;
+            height: auto !important;
+        }
+    }
+}
+
+@media (max-width: 850px) {
+    main{
+        padding: 20px;
+    }
+
+    .box-btnPage{
+        display: flex;
+        
+        button{
+            width: 100%;
+            padding: 0px;
+
+            font-size: 10pt !important;
+        }
+    }
+}

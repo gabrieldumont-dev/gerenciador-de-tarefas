@@ -1,0 +1,214 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+$preto-primario:    #0f1113;
+$preto-secundario:  #212529;
+$preto-terceiro:    #343A40;
+$preto-quarto:      #4e545a;
+
+$roxo:              #7209B7;
+$rosa:              #B5179E;
+$cinza:             #9c9c9c;
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Rubik", sans-serif;
+}
+
+main{
+    min-height: 100vh;
+
+    background-color: $preto-primario;
+}
+
+.alerta-pequeno{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    z-index: 1000;
+
+    padding: 20px;
+
+    background-color: $preto-secundario;
+    box-shadow: 0px 0px 20px $preto-primario;
+    border-right: solid 5px $rosa;
+
+    transform: translateY(calc(-100% - 10px));
+
+    transition: all 0.3s ease;
+
+    h1{
+        color: white;
+        font-size: 15pt;
+        font-weight: 700;
+    }
+}
+
+.alerta-pequeno-active{
+    transform: translateY(0px) !important;
+}
+
+.main-alerta-tarefa{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: -100;
+
+    width: 100%;
+    height: 100vh;
+
+    background-color: rgba($color: black, $alpha: 0.5);
+
+    .alerta-tarefa{
+        position: absolute;
+        top: 40px;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50px);
+
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+
+        width: 500px;
+        padding: 20px;
+
+        background-color: $preto-primario;
+        border: solid 1px $preto-secundario;
+        border-right: solid 5px $rosa;
+        opacity: 0;
+
+        transition: all 0.3s ease;
+
+        .box-input{
+            display: flex;
+            flex-direction: column;
+
+            label{
+                color: white;
+                font-size: 12pt;
+            }
+
+            input{
+                border: none;
+                outline: none;
+
+                padding: 10px 0px;
+
+                color: white;
+                font-size: 12pt;
+                background-color: transparent;
+                border-bottom: solid 1px $cinza;
+            }
+
+            input:focus, input:valid, textarea:focus, textarea:valid{
+                border-bottom: solid 1px white;
+            }
+
+            input::-webkit-calendar-picker-indicator {
+                cursor: pointer;
+                filter: invert(1);
+            }
+
+            textarea{
+                border: none;
+                outline: none;
+                resize: none;
+
+                padding: 10px 0px;
+
+                color: white;
+                font-size: 12pt;
+                background-color: transparent;
+                border-bottom: solid 1px $cinza;
+            }
+
+            textarea::-webkit-scrollbar{
+                width: 5px;
+
+                background-color: $preto-primario;
+            }
+
+            textarea::-webkit-scrollbar-thumb{
+                background-color: $preto-secundario;
+            }
+        }
+
+        .box-btns{
+            display: flex;
+            gap: 15px;
+
+            button{
+                border: none;
+                outline: none;
+
+                width: 100%;
+                padding: 10px;
+
+                // color: white;
+                font-size: 12pt;
+                font-weight: 300;
+                // background: linear-gradient(45deg, $roxo, $rosa);
+                // background-size: 200% 100%;
+
+                cursor: pointer;
+            }
+
+            .btn-roxo{
+                color: white;
+                background: linear-gradient(45deg, $roxo, $rosa);
+                background-size: 200% 100%;
+
+                
+                transition: all 0.3s ease;
+            }
+
+            .btn-roxo:hover{
+                background-position: 50% 100%;
+            }
+
+            .btn-preto{
+                color: gray;
+                background-color: transparent;
+                border: solid 1px gray;
+            }
+
+            .btn-preto:hover{
+                color: white;
+                border: solid 1px white;
+            }
+        }
+    }
+}
+
+.alerta-tarefa-active{
+    z-index: 100;
+
+    .alerta-tarefa{
+        transform: translateX(-50%) translateY(0px);
+        opacity: 1;
+    }
+}
+
+@media (max-width: 600px) {
+    .alerta-pequeno{
+        top: 20px;
+        right: 20px;
+
+        width: calc(100% - 40px);
+
+        transform: translateY(calc(-100% - 20px));
+    }
+
+    .main-alerta-tarefa .alerta-tarefa{
+        left: 20px;
+        transform: translateY(-50px);
+
+        width: calc(100% - 40px);
+    }
+
+    .alerta-tarefa-active .alerta-tarefa{
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}

@@ -1,0 +1,27 @@
+<header>
+    <i class="fa-solid fa-bars" (click)="onChangeMenu()"></i>
+</header>
+
+<nav [class.nav-open]="menuAberto">
+    <div>
+        <i class="fa-solid fa-angle-left" (click)="onChangeMenu()"></i>
+        <a [routerLink]="['/layout/agenda']" routerLinkActive="select" (click)="onChangeMenu()">
+            <i class="fa-regular fa-calendar"></i>
+            <p>Agenda</p>
+        </a>
+        <a [routerLink]="['/layout/tarefas']" routerLinkActive="select" (click)="onChangeMenu()">
+            <i class="fa-solid fa-list-ul"></i>
+            <p>Tarefas</p>
+        </a>
+    </div>
+    <div>
+        <a (click)="onSair()">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <p>Sair</p>
+        </a>
+    </div>
+</nav>
+
+<main>
+    <router-outlet></router-outlet>
+</main>

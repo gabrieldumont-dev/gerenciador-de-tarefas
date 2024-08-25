@@ -1,0 +1,43 @@
+<div class="main-alerta-tarefa" [class.alerta-tarefa-active]="viewAlertaTarefa" (click)="onChangeAlertaTarefa()">
+    <div class="alerta-tarefa" (click)="clickAlerta = true">
+        <div class="box-input">
+            <label>Título</label>
+            <input type="text" [(ngModel)]="tarefa.titulo" required disabled>
+        </div>
+        <div class="box-input">
+            <label>Descrição</label>
+            <textarea rows="5" type="text" [(ngModel)]="tarefa.descricao" required disabled></textarea>
+        </div>
+        <div class="box-input">
+            <input type="datetime-local" [(ngModel)]="tarefa.data" required disabled>
+        </div>
+    </div>
+</div>
+
+<main>
+    <div class="box-infoAgenda">
+        <i class="fa-solid fa-angle-left" (click)="onRetrocederSemana()"></i>
+        <h1>{{agenda[0].mes + " " + agenda[0].dia + " - " + agenda[6].mes + " " + agenda[6].dia + ", " + agenda[6].ano}}</h1>
+        <i class="fa-solid fa-angle-right" (click)="onAvancarSemana()"></i>
+    </div>
+    <div class="content-agenda">
+        @for (data of agenda; track $index){
+            <div class="box-dia" [class.dia-select]="data.data >= dataHoje">
+                <div class="box-cabecalho">
+                    <h1>{{data.dia}}</h1>
+                    <p>{{data.diaDaSemana}}</p>
+                </div>
+                <div class="box-tarefas">
+                    @for (tarefa of tarefas; track $index){
+                        @if (tarefa.data_agenda == data.data){
+                            <div [class.tarefa-concluida]="tarefa.concluido" [class.tarefa-pendente]="data.data == dataHoje && tarefa.data < dataHoraHoje" (click)="onSelectTarefa(tarefa)">
+                                <p>{{tarefa.hora}}</p>
+                                <h1>{{tarefa.titulo}}</h1>
+                            </div>
+                        }
+                    } 
+                </div>
+            </div>
+        }
+    </div>
+</main>
